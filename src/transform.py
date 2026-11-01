@@ -47,17 +47,39 @@ def transformar_dim_calendario(train, oil, holidays):
     return cal
 
 
+def transformar_fato_vendas(train, dim_familia):
+    abertura = train[train["sales"] > 0].groupby("store_nbr")["date"].min()
+    vendas = train[train["date"] >= train["store_nbr"].map(abertura)]
+
+    vendas = vendas.merge(dim_familia, left_on="family", right_on="nome_familia")
+    vendas = vendas.rename(columns={
+        "date": "data", "store_nbr": "id_loja",
+        "sales": "vendas", "onpromotion": "itens_promocao",
+    })
+    return vendas[["data", "id_loja", "id_familia", "vendas", "itens_promocao"]]
+
+
+def transformar_fato_transacoes(transactions):
+    return transactions.rename(columns={
+        "date": "data", "store_nbr": "id_loja", "transactions": "transacoes",
+    })
+
+
 if __name__ == "__main__":
     from extract import extrair_dados
 
     dados = extrair_dados()
-    dim_loja = transformar_dim_loja(dados["stores"])
     dim_familia = transformar_dim_familia(dados["train"])
-    dim_calendario = transformar_dim_calendario(dados["train"], dados["oil"], dados["holidays"])
+    fato_vendas = transformar_fato_vendas(dados["train"], dim_familia)
+    fato_transacoes = transformar_fato_transacoes(dados["transactions"])
 
-    print("dim_loja:", dim_loja.shape)
-    print("dim_familia:", dim_familia.shape)
-    print("dim_calendario:", dim_calendario.shape)
-    print("Feriados nacionais:", dim_calendario["feriado_nacional"].sum())
-    print("Preços de petróleo vazios:", dim_calendario["preco_petroleo"].isnull().sum())
-    print(dim_calendario.head(8))
+    print(f"train original: {len(dados['train']):,} linhas")
+    print(f"fato_vendas:    {len(fato_vendas):,} linhas")
+    print(f"Linhas removidas: {len(dados['train']) - len(fato_vendas):,}")
+    print(f"fato_transacoes: {len(fato_transacoes):,} linhas")
+
+    print(f"\nTotal de vendas no train:       {dados['train']['sales'].sum():,.2f}")
+    print(f"Total de vendas na fato_vendas: {fato_vendas['vendas'].sum():,.2f}")
+
+    chave = ["data", "id_loja", "id_familia"]
+    print("Linhas duplicadas na chave:", fato_vendas.duplicated(subset=chave).sum())
