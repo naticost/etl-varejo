@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "1da1d98fa2330be93bc9",
+  "position": {
+    "x": 30,
+    "y": 155,
+    "z": 0,
+    "height": 150,
+    "width": 1841
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Total Vendas"
+                }
+              },
+              "queryRef": "_Medidas.Total Vendas",
+              "nativeQueryRef": "Total Vendas"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Total Transações"
+                }
+              },
+              "queryRef": "_Medidas.Total Transações",
+              "nativeQueryRef": "Total Transações"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Itens por Transação"
+                }
+              },
+              "queryRef": "_Medidas.Itens por Transação",
+              "nativeQueryRef": "Itens por Transação"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Lojas em Queda"
+                }
+              },
+              "queryRef": "_Medidas.Lojas em Queda",
+              "nativeQueryRef": "Lojas em Queda"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "Total Vendas"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

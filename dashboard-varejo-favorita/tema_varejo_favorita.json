@@ -1,0 +1,34 @@
+{
+  "name": "Varejo Favorita",
+  "dataColors": ["#185FA5", "#85B7EB", "#B4B2A9", "#D85A30", "#1D9E75", "#0C447C", "#5DCAA5", "#EF9F27"],
+  "background": "#FFFFFF",
+  "foreground": "#2C2C2A",
+  "tableAccent": "#185FA5",
+  "good": "#1D9E75",
+  "neutral": "#EF9F27",
+  "bad": "#E24B4A",
+  "maximum": "#185FA5",
+  "center": "#85B7EB",
+  "minimum": "#E6F1FB",
+  "textClasses": {
+    "callout": { "fontSize": 26, "fontFace": "Segoe UI Semibold", "color": "#2C2C2A" },
+    "title": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#2C2C2A" },
+    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#2C2C2A" },
+    "label": { "fontSize": 10, "fontFace": "Segoe UI", "color": "#5F5E5A" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E3E2DC" } }, "radius": 8 }],
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#2C2C2A" } }, "fontSize": 12, "fontFamily": "Segoe UI Semibold" }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F3F4F6" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#F3F4F6" } } }]
+      }
+    }
+  }
+}

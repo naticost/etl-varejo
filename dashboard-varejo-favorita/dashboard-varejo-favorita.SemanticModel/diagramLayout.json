@@ -80,20 +80,20 @@
         },
         {
           "location": {
-            "x": 1167.0711650714582,
-            "y": 280.250835999075
+            "x": 0,
+            "y": 0
           },
           "nodeIndex": "_Medidas",
           "nodeLineageTag": "a9104ef9-60fe-4460-8fe5-144a1e5c5a3a",
           "size": {
-            "height": 104,
+            "height": 1000,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 6
         }
       ],
       "name": "Todas as tabelas",
-      "zoomValue": 50,
+      "zoomValue": 43.826086956521735,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

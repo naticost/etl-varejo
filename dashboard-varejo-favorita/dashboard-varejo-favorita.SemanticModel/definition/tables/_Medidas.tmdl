@@ -220,6 +220,60 @@ table _Medidas
 		formatString: 0
 		lineageTag: 841f882a-5b9a-43ae-9efd-755ad3263777
 
+	measure Subtítulo =
+			
+			"Período: " & SELECTEDVALUE(dim_calendario[ano], "2013 a 2017")
+			    & " · Dados até " & FORMAT(MAX(fato_vendas[data]), "dd/mm/yyyy")
+			    & " · Valores em unidades vendidas"
+		lineageTag: 429b8900-268c-41d6-804b-05979d95e456
+
+	measure 'Lojas em Queda' =
+			
+			COUNTROWS(FILTER(VALUES(dim_loja[id_loja]), [Crescimento %] < 0))
+		formatString: 0
+		lineageTag: e048f0c2-7135-4434-be1a-c8c9adfe6a95
+
+	measure 'Status Crescimento' =
+			
+			SWITCH(
+			    TRUE(),
+			    ISBLANK([Crescimento %]), BLANK(),
+			    [Crescimento %] >= 0.05, 3,
+			    [Crescimento %] >= 0, 2,
+			    1
+			)
+		formatString: 0
+		lineageTag: d114324b-2c34-4a24-9d8f-b5080384cbba
+
+	measure 'Texto Crescimento' =
+			
+			VAR c = [Crescimento %]
+			RETURN
+			    IF(
+			        ISBLANK(c),
+			        "Sem ano anterior",
+			        IF(c >= 0, "▲ ", "▼ ") & FORMAT(ABS(c), "0.0%") & " vs ano anterior"
+			    )
+		lineageTag: 9318c3df-20d9-4bcc-93c7-f3ea5a2adc1e
+
+	measure 'Cor Crescimento' = IF([Crescimento %] >= 0, "#1D9E75", "#E24B4A")
+		lineageTag: 1b57d4a4-9dae-4083-9e95-e6e8ab05148b
+
+	measure 'Título Dinâmico' = "Vendas de " & SELECTEDVALUE(dim_calendario[ano], "todos os anos")
+		lineageTag: c0d14e24-56ea-4bb8-a7f3-c38148c45e92
+
+	measure 'Cor Dia Semana' = IF(MAX(dim_calendario[fim_de_semana]), "#185FA5", "#85B7EB")
+		formatString: 0
+		lineageTag: 64f0f5b0-6af3-4d20-883d-a58e025a4130
+
+	measure Semáforo = IF(ISBLANK([Status Crescimento]), BLANK(), "⬤")
+		lineageTag: d73c99fc-d121-4e52-b898-51bc6ae729c2
+
+	measure 'Cor Status' =
+			
+			SWITCH([Status Crescimento], 3, "#1D9E75", 2, "#EF9F27", 1, "#E24B4A")
+		lineageTag: 5c74cd55-8434-4803-a42e-7b2027fb452d
+
 	partition _Medidas = m
 		mode: import
 		source =
