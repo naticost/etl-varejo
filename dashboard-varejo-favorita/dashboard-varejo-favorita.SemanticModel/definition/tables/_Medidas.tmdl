@@ -1,0 +1,233 @@
+table _Medidas
+	lineageTag: a9104ef9-60fe-4460-8fe5-144a1e5c5a3a
+
+	measure 'Total Vendas' = SUM(fato_vendas[vendas])
+		lineageTag: a1167f31-5583-4a6a-a072-efab80241d31
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Transações' = SUM(fato_transacoes[transacoes])
+		formatString: 0
+		lineageTag: ad883c7f-54ba-4665-96ec-f52da638701f
+
+	measure 'Itens por Transação' = DIVIDE([Total Vendas], [Total Transações])
+		lineageTag: 7c2c592f-2c3c-492f-9d11-0a45763bcc0a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Lojas Ativas' = DISTINCTCOUNT(fato_vendas[id_loja])
+		formatString: 0
+		lineageTag: ac25e3bd-e198-4370-b8ef-dbaa4385e44d
+
+	measure 'Dias com Venda' = DISTINCTCOUNT(fato_vendas[data])
+		formatString: 0
+		lineageTag: af7ecd5e-f2d8-4e4a-819d-4290652c868d
+
+	measure 'Média Diária' = DIVIDE([Total Vendas], [Dias com Venda])
+		lineageTag: 2f535d8d-e8a2-4ab7-b309-c0b99bf75f69
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda Média por Loja' = DIVIDE([Total Vendas], [Lojas Ativas])
+		lineageTag: bd60c86e-35dc-408d-b844-eff4829c37ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vendas Ano Anterior' =
+			
+			CALCULATE([Total Vendas], SAMEPERIODLASTYEAR(dim_calendario[data]))
+		lineageTag: b4f9811d-4839-41a3-86c5-e5b2b569f7d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Crescimento %' =
+			
+			DIVIDE([Total Vendas] - [Vendas Ano Anterior], [Vendas Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 141b8953-b38e-4c2e-91b2-88b409e542c3
+
+	measure 'Transações Ano Anterior' =
+			
+			CALCULATE([Total Transações], SAMEPERIODLASTYEAR(dim_calendario[data]))
+		formatString: 0
+		lineageTag: e3a10e50-bdd1-4f5c-a062-dc503b963784
+
+	measure 'Crescimento Transações %' =
+			
+			DIVIDE([Total Transações] - [Transações Ano Anterior], [Transações Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 334991fc-1259-4d61-bdac-d30f23750219
+
+	measure 'Vendas Mês Anterior' =
+			
+			CALCULATE([Total Vendas], DATEADD(dim_calendario[data], -1, MONTH))
+		lineageTag: a52eebb8-4d09-46fd-916b-cf10f70949d6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Crescimento vs Mês Anterior %' =
+			
+			DIVIDE([Total Vendas] - [Vendas Mês Anterior], [Vendas Mês Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3ac4cc4d-bb79-44e1-9b8a-e8b440c01c58
+
+	measure 'Vendas Acumuladas no Ano' = TOTALYTD([Total Vendas], dim_calendario[data])
+		lineageTag: bac56508-d2a1-4f77-ab9b-dd1eebe2fb86
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Média Móvel 7 Dias' =
+			
+			AVERAGEX(
+			    DATESINPERIOD(dim_calendario[data], MAX(dim_calendario[data]), -7, DAY),
+			    [Total Vendas]
+			)
+		lineageTag: 260b6a4a-ee5b-4d13-836b-757a2e791c34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Participação' =
+			
+			DIVIDE([Total Vendas], CALCULATE([Total Vendas], ALL(dim_familia)))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9ba88671-a73f-4230-8b62-dd1ea0b7e47c
+
+	measure 'Ranking Família' =
+			
+			RANKX(ALL(dim_familia[nome_familia]), [Total Vendas], , DESC, DENSE)
+		formatString: 0
+		lineageTag: 83b12d88-410c-4c00-8b98-82318f6136d8
+
+	measure '% Acumulado' =
+			
+			VAR VendaAtual = [Total Vendas]
+			VAR Total = CALCULATE([Total Vendas], ALL(dim_familia))
+			VAR Acumulado =
+			    SUMX(
+			        FILTER(
+			            ALL(dim_familia[nome_familia]),
+			            CALCULATE([Total Vendas]) >= VendaAtual
+			        ),
+			        CALCULATE([Total Vendas])
+			    )
+			RETURN
+			    DIVIDE(Acumulado, Total)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 645d9fee-9b30-44b2-9081-33d556313e8a
+
+	measure 'Ranking Loja' =
+			
+			RANKX(ALL(dim_loja[id_loja]), [Total Vendas], , DESC, DENSE)
+		formatString: 0
+		lineageTag: c3fefb55-1702-4e69-b681-279d5916ee42
+
+	measure 'Participação da Loja %' =
+			
+			DIVIDE([Total Vendas], CALCULATE([Total Vendas], ALL(dim_loja)))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: df1aeecf-3902-4c77-bba3-ed6f765faed0
+
+	measure 'Classe ABC' =
+			
+			IF(
+			    HASONEVALUE(dim_familia[nome_familia]),
+			    VAR AcumuladoAnterior = [% Acumulado] - [% Participação]
+			    RETURN
+			        SWITCH(
+			            TRUE(),
+			            AcumuladoAnterior < 0.80, "A",
+			            AcumuladoAnterior < 0.95, "B",
+			            "C"
+			        )
+			)
+		lineageTag: c1625da1-13d2-4feb-adc6-f49ca63185cb
+
+	measure 'Famílias Classe A' =
+			
+			COUNTROWS(FILTER(VALUES(dim_familia[nome_familia]), [Classe ABC] = "A"))
+		formatString: 0
+		lineageTag: 6783fcfd-327f-4186-91e8-83322d5a4fe7
+
+	measure 'Famílias Classe B' =
+			
+			COUNTROWS(FILTER(VALUES(dim_familia[nome_familia]), [Classe ABC] = "B"))
+		formatString: 0
+		lineageTag: bdf990e2-d6bf-44e1-ab09-d3bc5bc1af27
+
+	measure 'Famílias Classe C' =
+			
+			COUNTROWS(FILTER(VALUES(dim_familia[nome_familia]), [Classe ABC] = "C"))
+		formatString: 0
+		lineageTag: c9048d5c-5f8e-49cc-b9c1-cc1ef3b1d7f5
+
+	measure 'Média Diária Feriado' =
+			
+			CALCULATE([Média Diária], dim_calendario[feriado_nacional] = TRUE())
+		lineageTag: 31e50dd7-0da2-4eeb-a8c1-ab7e1cbe0d76
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Diferença Feriado %' =
+			
+			DIVIDE([Média Diária Feriado] - [Média Diária Dia Normal], [Média Diária Dia Normal])
+		lineageTag: 9acc75ca-383f-4383-97a1-911c72c9ad09
+
+	measure 'Média Diária Fim de Semana' =
+			
+			CALCULATE([Média Diária], dim_calendario[fim_de_semana] = TRUE())
+		lineageTag: b055137f-924e-4672-8915-a75d40cb91c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Média Diária Dia Útil' =
+			
+			CALCULATE([Média Diária], dim_calendario[fim_de_semana] = FALSE())
+		lineageTag: 54ebed0a-203a-43cb-a772-c3bb949c880a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Média Diária Dia Normal' =
+			
+			CALCULATE([Média Diária], dim_calendario[feriado_nacional] = FALSE())
+		lineageTag: 899080ac-f333-48c6-822a-38495e32dbbc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Linhas Carregadas Vendas' = COUNTROWS(fato_vendas)
+		formatString: 0
+		lineageTag: d8969564-c199-4443-88c3-6fa9d104f2af
+
+	measure 'Linhas Carregadas Transações' = COUNTROWS(fato_transacoes)
+		formatString: 0
+		lineageTag: 1c1abedd-0224-4040-9662-3a7c9e6f335c
+
+	measure 'Dias no Calendário' = COUNTROWS(dim_calendario)
+		formatString: 0
+		lineageTag: 71841a3b-2b59-45be-b582-cdfcbb977c0d
+
+	measure 'Dias sem Preço Petróleo' =
+			
+			COUNTROWS(FILTER(dim_calendario, ISBLANK(dim_calendario[preco_petroleo])))
+		formatString: 0
+		lineageTag: f470ef3a-a394-4567-9782-048c843c7fdd
+
+	measure 'Duplicidades na Chave' =
+			
+			COUNTROWS(fato_vendas)
+			    - COUNTROWS(
+			        SUMMARIZE(fato_vendas, fato_vendas[data], fato_vendas[id_loja], fato_vendas[id_familia])
+			    )
+		formatString: 0
+		lineageTag: 841f882a-5b9a-43ae-9efd-755ad3263777
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+				  Origem = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Colunas Removidas" = Table.RemoveColumns(Origem,{"Coluna 1"})
+				in
+				  #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

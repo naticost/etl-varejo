@@ -1,0 +1,30 @@
+relationship ee0ec3f7-7671-4e47-9e57-cfc6d4810ac2
+	fromColumn: fato_transacoes.data
+	toColumn: dim_calendario.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship 21ee633e-da08-45be-9307-1218ef06898b
+	fromColumn: fato_transacoes.id_loja
+	toColumn: dim_loja.id_loja
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4d58f762-f20f-40f9-9a8f-7b2dd0b3967f
+	fromColumn: fato_vendas.data
+	toColumn: dim_calendario.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship 78d03f70-d998-4da6-be14-fb6eec43716b
+	fromColumn: fato_vendas.id_familia
+	toColumn: dim_familia.id_familia
+
+	annotation PBI_IsFromSource = FS
+
+relationship 20b38cf3-0573-4cfd-8275-1cbdd5c99744
+	fromColumn: fato_vendas.id_loja
+	toColumn: dim_loja.id_loja
+
+	annotation PBI_IsFromSource = FS
+

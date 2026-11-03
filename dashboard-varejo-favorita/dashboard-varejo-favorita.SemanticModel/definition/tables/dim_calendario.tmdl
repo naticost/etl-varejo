@@ -1,0 +1,136 @@
+table dim_calendario
+	lineageTag: 0ec79fc4-ddd0-4556-8386-0c577f267f50
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 5c05666a-74f4-4d56-87a8-8c32473879ff
+		summarizeBy: none
+		sourceColumn: data
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 20062340-f4b5-439d-aff2-d1bed662b1dd
+		summarizeBy: sum
+		sourceColumn: ano
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: e9aabb25-9453-41e3-ac92-10a9c90e1561
+		summarizeBy: sum
+		sourceColumn: trimestre
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: c3f077a7-a7d9-4d70-b008-0fece5e40be1
+		summarizeBy: sum
+		sourceColumn: mes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_mes
+		dataType: string
+		lineageTag: 3d86b92c-b50a-4a8a-b8f0-12d860167564
+		summarizeBy: none
+		sourceColumn: nome_mes
+		sortByColumn: mes
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: string
+		lineageTag: 594058eb-1627-4425-84a2-3b07ea0dd484
+		summarizeBy: none
+		sourceColumn: dia_semana
+		sortByColumn: num_dia_semana
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column fim_de_semana
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 885dedba-ed01-4f95-a095-94af4c4b0154
+		summarizeBy: none
+		sourceColumn: fim_de_semana
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column feriado_nacional
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ac2dcda9-2cba-427c-b739-730d786ba4fa
+		summarizeBy: none
+		sourceColumn: feriado_nacional
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column preco_petroleo
+		dataType: double
+		lineageTag: f449e024-bb8e-40dd-b5b9-180980e4513c
+		summarizeBy: sum
+		sourceColumn: preco_petroleo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column num_dia_semana = WEEKDAY(dim_calendario[data], 2)
+		isHidden
+		formatString: 0
+		lineageTag: 3644bbc9-f0e2-41a0-99d4-9e15ad918330
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendario = m
+		mode: import
+		source =
+				let
+				  Origem = MySQL.Database("localhost", "varejo_favorita"),
+				  #"Navegação 1" = Origem{[Schema = "varejo_favorita", Item = "dim_calendario"]}[Data]
+				in
+				  #"Navegação 1"
+
+	changedProperty = Name
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

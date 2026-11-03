@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "dashboard-varejo-favorita"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7a7b802d-4604-403b-93b9-e7cb1573dcc5"
+  }
+}

@@ -1,0 +1,58 @@
+table dim_loja
+	lineageTag: 880e98a4-8dd9-4ce0-b4ed-e3a4ac0ac3d8
+
+	column id_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 250079a3-e713-4ed1-87ed-c90fde233102
+		summarizeBy: none
+		sourceColumn: id_loja
+
+		annotation SummarizationSetBy = Automatic
+
+	column cidade
+		dataType: string
+		lineageTag: 3da8c3ef-c1e2-49fc-a133-3596d026971c
+		summarizeBy: none
+		sourceColumn: cidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado
+		dataType: string
+		lineageTag: 3848a0bd-eb3e-478c-bd5b-cc0a38f214ca
+		summarizeBy: none
+		sourceColumn: estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_loja
+		dataType: string
+		lineageTag: e059eae5-858c-408b-ac8d-cf5d5ac158c7
+		summarizeBy: none
+		sourceColumn: tipo_loja
+
+		annotation SummarizationSetBy = Automatic
+
+	column cluster_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 9005f37e-094e-48c3-9fd0-475991cefbcb
+		summarizeBy: sum
+		sourceColumn: cluster_loja
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_loja = m
+		mode: import
+		source =
+				let
+				  Origem = MySQL.Database("localhost", "varejo_favorita"),
+				  #"Navegação 1" = Origem{[Schema = "varejo_favorita", Item = "dim_loja"]}[Data]
+				in
+				  #"Navegação 1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

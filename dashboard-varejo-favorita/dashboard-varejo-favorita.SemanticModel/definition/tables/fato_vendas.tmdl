@@ -1,0 +1,64 @@
+table fato_vendas
+	lineageTag: 59a96055-3e8a-478b-b2e0-b8104d36a194
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 443bd920-b5ee-42df-a90a-7eb6142e9836
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column id_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: bd0318e8-7ef3-4452-8c27-124ea9c6cd63
+		summarizeBy: none
+		sourceColumn: id_loja
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_familia
+		dataType: int64
+		formatString: 0
+		lineageTag: 78fe7ca0-606a-45f2-be79-8e299472ad80
+		summarizeBy: none
+		sourceColumn: id_familia
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendas
+		dataType: double
+		lineageTag: 9ababd95-a7ea-4146-a8bc-004cb24ab74e
+		summarizeBy: sum
+		sourceColumn: vendas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column itens_promocao
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fbd89dc-10ec-4ac7-909e-56fbab1834a4
+		summarizeBy: sum
+		sourceColumn: itens_promocao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_vendas = m
+		mode: import
+		source =
+				let
+				  Origem = MySQL.Database("localhost", "varejo_favorita"),
+				  #"Navegação 1" = Origem{[Schema = "varejo_favorita", Item = "fato_vendas"]}[Data]
+				in
+				  #"Navegação 1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,45 @@
+table fato_transacoes
+	lineageTag: 1dc30771-d10d-4ddd-8c5e-11ae001e990c
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 92a83621-151e-4b1f-ad09-7791dd03c76f
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column id_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 285dbf33-84ea-4afb-af0a-471806b3e532
+		summarizeBy: none
+		sourceColumn: id_loja
+
+		annotation SummarizationSetBy = Automatic
+
+	column transacoes
+		dataType: int64
+		formatString: 0
+		lineageTag: 67e2d105-0238-4e18-a283-09ec978ffa9d
+		summarizeBy: sum
+		sourceColumn: transacoes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_transacoes = m
+		mode: import
+		source =
+				let
+				  Origem = MySQL.Database("localhost", "varejo_favorita"),
+				  #"Navegação 1" = Origem{[Schema = "varejo_favorita", Item = "fato_transacoes"]}[Data]
+				in
+				  #"Navegação 1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
