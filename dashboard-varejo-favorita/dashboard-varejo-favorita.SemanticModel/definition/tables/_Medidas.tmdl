@@ -343,6 +343,20 @@ table _Medidas
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Cidades Atendidas' = COUNTROWS(SUMMARIZE(fato_vendas, dim_loja[cidade]))
+		formatString: 0
+		lineageTag: d4624c6b-3437-4f2e-a6e4-3273923b7772
+
+	measure 'Vendas Top 10 Estados' =
+			
+			IF(
+			    RANKX(ALLSELECTED(dim_loja[estado]), [Total Vendas], , DESC, DENSE) <= 10,
+			    [Total Vendas]
+			)
+		lineageTag: c125520c-4258-49ca-92ca-6944b84f941e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition _Medidas = m
 		mode: import
 		source =

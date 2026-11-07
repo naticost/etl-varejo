@@ -49,6 +49,13 @@ table dim_loja
 
 		annotation SummarizationSetBy = Automatic
 
+	column Local = dim_loja[cidade] & ", " & dim_loja[estado] & ", Ecuador"
+		lineageTag: b3af7ac8-e4cc-4ef1-b3df-8ac2d42d0e8e
+		dataCategory: Place
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_loja = m
 		mode: import
 		source =

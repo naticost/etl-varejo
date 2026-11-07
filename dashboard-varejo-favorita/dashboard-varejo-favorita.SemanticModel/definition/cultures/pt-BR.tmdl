@@ -1230,6 +1230,16 @@ cultureInfo pt-BR
 			            },
 			            "Weight": 0.9
 			          }
+			        },
+			        {
+			          "Itens por compra": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -2673,6 +2683,85 @@ cultureInfo pt-BR
 			          }
 			        }
 			      ]
+			    },
+			    "dim_loja.local": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_loja",
+			          "ConceptualProperty": "Local"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "local": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "place": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        },
+			        {
+			          "native": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "resident": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "home-grown": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "narrow": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.452
+			          }
+			        }
+			      ],
+			      "SemanticType": "Location"
+			    },
+			    "entity__medida.cidades_atendidas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Cidades Atendidas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cidades atendidas": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
@@ -2903,6 +2992,105 @@ cultureInfo pt-BR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_calendarios_have_fato_transacoes"
+			        }
+			      ]
+			    },
+			    "fato_venda_has_entity__medida_cidades_atendidas": {
+			      "Binding": {
+			        "ConceptualEntity": "fato_vendas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fato_venda": {
+			          "Target": {
+			            "Entity": "fato_venda"
+			          }
+			        },
+			        "entity__medida.cidades_atendidas": {
+			          "Target": {
+			            "Entity": "entity__medida.cidades_atendidas"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fato_venda"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.cidades_atendidas"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fato_venda_have_cidades_atendidas"
+			        }
+			      ]
+			    },
+			    "dim_loja_has_entity__medida_cidades_atendidas": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_loja"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_loja": {
+			          "Target": {
+			            "Entity": "dim_loja"
+			          }
+			        },
+			        "entity__medida.cidades_atendidas": {
+			          "Target": {
+			            "Entity": "entity__medida.cidades_atendidas"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_loja"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.cidades_atendidas"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_loja_have_cidades_atendidas"
+			        }
+			      ]
+			    },
+			    "dim_loja_has_local": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_loja"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_loja": {
+			          "Target": {
+			            "Entity": "dim_loja"
+			          }
+			        },
+			        "dim_loja.local": {
+			          "Target": {
+			            "Entity": "dim_loja.local"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_loja"
+			            },
+			            "Object": {
+			              "Role": "dim_loja.local"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_loja_have_locals"
 			        }
 			      ]
 			    },
@@ -5576,6 +5764,51 @@ cultureInfo pt-BR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_calendarios_have_data"
+			        }
+			      ]
+			    },
+			    "dim_loja_in_local": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_loja"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_loja": {
+			          "Target": {
+			            "Entity": "dim_loja"
+			          }
+			        },
+			        "dim_loja.local": {
+			          "Target": {
+			            "Entity": "dim_loja.local"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "Where": {
+			          "Role": "dim_loja.local"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "dim_loja"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "dim_loja.local"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_loja_are_in_locals"
 			        }
 			      ]
 			    }
