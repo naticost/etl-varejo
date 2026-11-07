@@ -301,6 +301,48 @@ table _Medidas
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Famílias com Vendas' =
+			
+			CALCULATE(DISTINCTCOUNT(fato_vendas[id_familia]), fato_vendas[vendas] > 0)
+		formatString: 0
+		lineageTag: f63683bf-adde-455e-a2a8-a66647e5767c
+
+	measure 'Família Líder' =
+			
+			MAXX(TOPN(1, VALUES(dim_familia[nome_familia]), [Total Vendas]), dim_familia[nome_familia])
+		lineageTag: a7206154-f1f6-43b5-b1d8-7060c2f2c531
+
+	measure 'Participação da Líder' =
+			
+			DIVIDE(
+			    MAXX(TOPN(1, VALUES(dim_familia[nome_familia]), [Total Vendas]), [Total Vendas]),
+			    [Total Vendas]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3a42f193-583c-4905-9ad0-d9c5daf254fe
+
+	measure 'Vendas nas 5 Maiores' =
+			
+			DIVIDE(
+			    SUMX(TOPN(5, VALUES(dim_familia[nome_familia]), [Total Vendas]), [Total Vendas]),
+			    [Total Vendas]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2a99a054-475d-4d88-895a-240773d2cb76
+
+	measure 'Vendas Top 5 Famílias' =
+			
+			VAR Posicao =
+			    RANKX(
+			        ALLSELECTED(dim_familia),
+			        CALCULATE([Total Vendas], ALLSELECTED(dim_calendario)),
+			        , DESC, DENSE
+			    )
+			RETURN IF(Posicao <= 5, [Total Vendas])
+		lineageTag: 11d4ddae-ae8a-4523-ab8e-dfae5b02cd26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition _Medidas = m
 		mode: import
 		source =

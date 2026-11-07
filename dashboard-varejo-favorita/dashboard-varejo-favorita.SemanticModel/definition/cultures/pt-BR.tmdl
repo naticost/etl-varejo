@@ -424,6 +424,16 @@ cultureInfo pt-BR
 			            "State": "Generated",
 			            "Weight": 0.99
 			          }
+			        },
+			        {
+			          "Familia": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -1138,6 +1148,16 @@ cultureInfo pt-BR
 			            },
 			            "Weight": 0.9
 			          }
+			        },
+			        {
+			          "Vendas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -1524,6 +1544,16 @@ cultureInfo pt-BR
 			            },
 			            "Weight": 0.582
 			          }
+			        },
+			        {
+			          "Participação": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -1539,6 +1569,16 @@ cultureInfo pt-BR
 			        {
 			          "ranking família": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "#": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -2493,6 +2533,146 @@ cultureInfo pt-BR
 			          }
 			        }
 			      ]
+			    },
+			    "entity__medida.famílias_com_vendas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Famílias com Vendas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "famílias com vendas": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__medida.família_líder": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Família Líder"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "família líder": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__medida.participação_da_líder": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Participação da Líder"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "participação da líder": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__medida.vendas_nas_5_maiores": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Vendas nas 5 Maiores"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "vendas nas 5 maiores": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__medida.vendas_top_5_famílias": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Medidas",
+			          "ConceptualProperty": "Vendas Top 5 Famílias"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "vendas top 5 famílias": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "venda best 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "venda first 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "venda leading 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "venda maximum 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "venda peak 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        },
+			        {
+			          "venda upper 5 família": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.599
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
@@ -2723,6 +2903,270 @@ cultureInfo pt-BR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_calendarios_have_fato_transacoes"
+			        }
+			      ]
+			    },
+			    "entity__medida_has_vendas_top_5_famílias": {
+			      "Binding": {
+			        "ConceptualEntity": "_Medidas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__medida": {
+			          "Target": {
+			            "Entity": "entity__medida"
+			          }
+			        },
+			        "entity__medida.vendas_top_5_famílias": {
+			          "Target": {
+			            "Entity": "entity__medida.vendas_top_5_famílias"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__medida"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.vendas_top_5_famílias"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_medidas_have_vendas_top_5_famílias"
+			        }
+			      ]
+			    },
+			    "fato_venda_has_entity__medida_vendas_nas_5_maiores": {
+			      "Binding": {
+			        "ConceptualEntity": "fato_vendas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fato_venda": {
+			          "Target": {
+			            "Entity": "fato_venda"
+			          }
+			        },
+			        "entity__medida.vendas_nas_5_maiores": {
+			          "Target": {
+			            "Entity": "entity__medida.vendas_nas_5_maiores"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fato_venda"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.vendas_nas_5_maiores"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fato_venda_have_vendas_nas_5_maiores"
+			        }
+			      ]
+			    },
+			    "dim_familia_has_entity__medida_vendas_nas_5_maiores": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_familia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_familia": {
+			          "Target": {
+			            "Entity": "dim_familia"
+			          }
+			        },
+			        "entity__medida.vendas_nas_5_maiores": {
+			          "Target": {
+			            "Entity": "entity__medida.vendas_nas_5_maiores"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_familia"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.vendas_nas_5_maiores"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_familias_have_vendas_nas_5_maiores"
+			        }
+			      ]
+			    },
+			    "fato_venda_has_entity__medida_participação_da_líder": {
+			      "Binding": {
+			        "ConceptualEntity": "fato_vendas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fato_venda": {
+			          "Target": {
+			            "Entity": "fato_venda"
+			          }
+			        },
+			        "entity__medida.participação_da_líder": {
+			          "Target": {
+			            "Entity": "entity__medida.participação_da_líder"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fato_venda"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.participação_da_líder"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fato_venda_have_participação_da_líder"
+			        }
+			      ]
+			    },
+			    "dim_familia_has_entity__medida_participação_da_líder": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_familia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_familia": {
+			          "Target": {
+			            "Entity": "dim_familia"
+			          }
+			        },
+			        "entity__medida.participação_da_líder": {
+			          "Target": {
+			            "Entity": "entity__medida.participação_da_líder"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_familia"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.participação_da_líder"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_familias_have_participação_da_líder"
+			        }
+			      ]
+			    },
+			    "fato_venda_has_entity__medida_família_líder": {
+			      "Binding": {
+			        "ConceptualEntity": "fato_vendas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fato_venda": {
+			          "Target": {
+			            "Entity": "fato_venda"
+			          }
+			        },
+			        "entity__medida.família_líder": {
+			          "Target": {
+			            "Entity": "entity__medida.família_líder"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fato_venda"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.família_líder"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fato_venda_have_família_líder"
+			        }
+			      ]
+			    },
+			    "dim_familia_has_entity__medida_família_líder": {
+			      "Binding": {
+			        "ConceptualEntity": "dim_familia"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "dim_familia": {
+			          "Target": {
+			            "Entity": "dim_familia"
+			          }
+			        },
+			        "entity__medida.família_líder": {
+			          "Target": {
+			            "Entity": "entity__medida.família_líder"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_familia"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.família_líder"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_familias_have_família_líder"
+			        }
+			      ]
+			    },
+			    "fato_venda_has_entity__medida_famílias_com_vendas": {
+			      "Binding": {
+			        "ConceptualEntity": "fato_vendas"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fato_venda": {
+			          "Target": {
+			            "Entity": "fato_venda"
+			          }
+			        },
+			        "entity__medida.famílias_com_vendas": {
+			          "Target": {
+			            "Entity": "entity__medida.famílias_com_vendas"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fato_venda"
+			            },
+			            "Object": {
+			              "Role": "entity__medida.famílias_com_vendas"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fato_venda_have_famílias_com_vendas"
 			        }
 			      ]
 			    },
@@ -3185,39 +3629,6 @@ cultureInfo pt-BR
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_loja_have_lojas_em_queda"
-			        }
-			      ]
-			    },
-			    "fato_venda_has_entity__medida_subtítulo": {
-			      "Binding": {
-			        "ConceptualEntity": "fato_vendas"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "fato_venda": {
-			          "Target": {
-			            "Entity": "fato_venda"
-			          }
-			        },
-			        "entity__medida.subtítulo": {
-			          "Target": {
-			            "Entity": "entity__medida.subtítulo"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "fato_venda"
-			            },
-			            "Object": {
-			              "Role": "entity__medida.subtítulo"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "fato_venda_have_subtítulo"
 			        }
 			      ]
 			    },
