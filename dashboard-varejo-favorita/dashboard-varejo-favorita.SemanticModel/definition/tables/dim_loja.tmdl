@@ -43,6 +43,12 @@ table dim_loja
 
 		annotation SummarizationSetBy = Automatic
 
+	column Loja = "Loja " & dim_loja[id_loja] & " · " & dim_loja[cidade]
+		lineageTag: abc659e8-3bdc-480d-b1a4-f1eef177fbcf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_loja = m
 		mode: import
 		source =

@@ -222,9 +222,13 @@ table _Medidas
 
 	measure Subtítulo =
 			
-			"Período: " & SELECTEDVALUE(dim_calendario[ano], "2013 a 2017")
-			    & " · Dados até " & FORMAT(MAX(fato_vendas[data]), "dd/mm/yyyy")
-			    & " · Valores em unidades vendidas"
+			VAR AnoInicial = MIN(dim_calendario[ano])
+			VAR AnoFinal = MAX(dim_calendario[ano])
+			RETURN
+			    "Período: "
+			        & IF(AnoInicial = AnoFinal, AnoInicial, AnoInicial & " a " & AnoFinal)
+			        & " · Valores em unidades vendidas"
+			        & " · Fonte: Corporación Favorita (Kaggle)"
 		lineageTag: 429b8900-268c-41d6-804b-05979d95e456
 
 	measure 'Lojas em Queda' =
@@ -273,6 +277,29 @@ table _Medidas
 			
 			SWITCH([Status Crescimento], 3, "#1D9E75", 2, "#EF9F27", 1, "#E24B4A")
 		lineageTag: 5c74cd55-8434-4803-a42e-7b2027fb452d
+
+	measure 'Ranking Loja Visual' =
+			
+			RANKX(ALLSELECTED(dim_loja), [Total Vendas], , DESC, DENSE)
+		formatString: 0
+		lineageTag: 573385eb-eb3e-47e7-990e-845982d83c5e
+
+	measure 'Vendas Top 10 Lojas' =
+			
+			IF([Ranking Loja Visual] <= 10, [Total Vendas])
+		lineageTag: 8f6f01e7-eb5f-4ca8-a3e6-b018ff160f9e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vendas Top 10 Famílias' =
+			
+			IF(
+			    RANKX(ALLSELECTED(dim_familia), [Total Vendas], , DESC, DENSE) <= 10,
+			    [Total Vendas]
+			)
+		lineageTag: 72becab3-e290-43b7-bc27-46151e1dc556
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Medidas = m
 		mode: import

@@ -119,6 +119,18 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
+	column dia_abrev = LEFT(dim_calendario[dia_semana], 3)
+		lineageTag: 3e6d57f3-048d-4059-81cc-6e75a908232e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano Mês' = FORMAT(dim_calendario[data], "yyyy-MM")
+		lineageTag: a5b8bcb7-82f6-4e69-92eb-5c53a52dd874
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_calendario = m
 		mode: import
 		source =

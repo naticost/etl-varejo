@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 0,
-    "z": 5,
+    "z": 1000,
     "height": 114,
     "width": 1920,
-    "tabOrder": 2
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Painel comercial · Rede Favorita",
+                    "value": "Painel comercial - Corporación Favorita ",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "40pt",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Período: 2016 · Dados até 15/08/2017 · Valores em unidades vendidas",
+                    "value": " Dados até 15/08/2017 · Fonte: Corporación Favorita (Kaggle)",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "18pt",
